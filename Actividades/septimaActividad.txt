@@ -1,0 +1,21 @@
+Algoritmo 1:
+
+n = 2
+while !empty() and n > 0
+	pop()
+	n--
+
+
+Algoritmo 2:
+
+if !empty() 
+	temp = peek()
+	pop()
+	segundo elemento = peek()
+	push(temp)
+
+
+Algoritmo 3:
+
+while !empty()
+	pop()
