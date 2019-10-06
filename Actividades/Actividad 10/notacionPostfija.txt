@@ -1,0 +1,58 @@
+I. Manera intuitiva:
+
+A-B/(C*D$E)
+A-B/(C*DE$)
+A-B/(CDE$*)
+A-B(CDE$*)/
+AB(CDE$*)/- 
+ABCDE$*/- 
+
+((A+B)*C-(D-E))$(F+G)
+((A+B)*C-(D-E))$(FG+)
+((A+B)*C-(DE-))$(FG+)
+((AB+)*C-(DE-))$(FG+)
+((AB+)C*-(DE-))$(FG+)
+((AB+)C*(DE-)-)$(FG+)
+((AB+)C*(DE-)-)(FG+)$
+AB+C*DE--FG+$
+
+
+II.Utilizando algoritmo:
+
+A-B/(C*D$E)
+symb		stack		postfix		
+A 						A			
+-			-			
+B			-			AB
+/			-/			AB			
+(			-/(			AB					
+C			-/(			ABC
+*			-/(*		ABC
+D			-/(*		ABCD
+$			-/(*$		ABCD
+E			-/(*$		ABCDE
+)						ABCDE$*/-		
+
+((A+B)*C-(D-E))$(F+G)
+symb		stack		postfix	
+(			(				
+(			((
+A			((			A
++			((+			A
+B			((+			AB
+)			(			AB+
+*			(*			AB+
+C			(*			AB+C
+-			(-			AB+C*
+(			(-(			AB+C*
+D			(-(			AB+C*D
+-			(-(-		AB+C*D
+E			(-(-		AB+C*DE
+)			(-			AB+C*DE-
+)						AB+C*DE--
+$			$			AB+C*DE--
+(			$(			AB+C*DE--
+F			$(			AB+C*DE--F
++			$(+			AB+C*DE--F
+G			$(+			AB+C*DE--FG
+)						AB+C*DE--FG+$
