@@ -1,85 +1,108 @@
 #include<iostream>
+#include<ctime>
+#include<cstdlib>
 
 using namespace std;
 
-typedef struct nodo
+struct nodo
 {
 	int dato;
-	nodo* izq;
-	nodo* der;
-}nodo;
+	nodo* sig;
+}*inicio = nullptr;
+typedef struct nodo nodo;
 
-nodo* crearNodo(nodo* T, int n)
+void llenarLista()
 {
-	nodo* temp = new nodo;
-	temp->dato = n;
-	temp->izq = nullptr;
-	temp->der = nullptr;
-	return temp;
-}
-
-nodo* insertar(nodo* T, int n)
-{
-	if (!T)
-		return crearNodo(T, n);
-	if (n < T->dato)
-		T->izq = insertar(T->izq, n);
-	else 
-		T->der = insertar(T->der, n);
-	return T;
-}
-
-void in_order(nodo* T)
-{
-	if (!T)
-		return;
-	in_order(T->izq);
-	cout<<T->dato<<endl;
-	in_order(T->der);
-}
-
-int altura(nodo* T)
-{
-	if (!T)
-		return -1;
+	inicio = new nodo;
+	inicio->dato = rand()%100 + 1;
+	inicio->sig = nullptr;
+	nodo* n = inicio;
+	for (int i = 0; i < 19; ++i)
 	{
-		int l = altura(T->izq);
-		int r = altura(T->der);
-		if (l > r)  
-		    return(l + 1);  
-    	else 
-    		return(r + 1);
-    }
+		n->sig = new nodo;
+		n = n->sig;
+		n->dato = rand()%100 + 1;
+		n->sig = nullptr;
+	}
 }
 
-int cantidadNodos(nodo* T)
+void mostrarLista()
 {
-	if (!T)
-		return 0;
-	return cantidadNodos(T->izq) + cantidadNodos(T->der) + 1;
+	nodo* n = inicio;
+	if (!inicio)
+	{
+		cout<<"No hay elementos en la lista.\n";
+	}
+	else
+	{
+		while (n)
+		{
+			cout<<n->dato<<", ";
+			n = n->sig;
+		}
+		cout<<endl;
+	}
 }
 
-int sumaNodos(nodo* T)
+void mostrarPares()
 {
-	if (!T)
-		return 0;
-	return sumaNodos(T->izq) + sumaNodos(T->der) + T->dato;
+	nodo* n = inicio;
+	if (!inicio)
+	{
+		cout<<"No hay elementos en la lista.\n";
+	}
+	else
+	{
+		while (n)
+		{
+			if (n->dato % 2 == 0)
+			{
+				cout<<n->dato<<", ";
+			}
+			n = n->sig;
+		}
+		cout<<endl;
+	}
+}
+
+void mostrarImpares()
+{
+	nodo* n = inicio;
+	if (!inicio)
+	{
+		cout<<"No hay elementos en la lista.\n";
+	}
+	else
+	{
+		while (n)
+		{
+			if (n->dato % 2 != 0)
+			{
+				cout<<n->dato<<", ";
+			}
+			n = n->sig;
+		}
+		cout<<endl;
+	}
+}
+
+void mostrarInverso(nodo* n)
+{
+	if (n)
+	{
+		mostrarInverso(n->sig);
+		cout<<n->dato<<", ";
+	}
 }
 
 int main(void)
 {
-	nodo* T = nullptr;
-	T = insertar(T, 8);
-	T = insertar(T, 10);
-	T = insertar(T, 13);
-	T = insertar(T, 3);
-	T = insertar(T, 4);
-	T = insertar(T, 6);
-	T = insertar(T, 7);
-	T = insertar(T, 14);
-	T = insertar(T, 1);
-	cout<<"La altura del arbol es: "<<altura(T)<<endl;
-	cout<<"La cantidad de nodos es: "<<cantidadNodos(T)<<endl;
-	cout<<"La suma de nodos es: "<<sumaNodos(T)<<endl;
+	srand(time(NULL));
+	llenarLista();
+	mostrarLista();
+	mostrarPares();
+	mostrarImpares();
+	mostrarInverso(inicio);
+	cout<<endl;
 	return 0;
 }
